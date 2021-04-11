@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "708976263898",
+    "project_id": "easify-database",
+    "storage_bucket": "easify-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708976263898:android:4f39ac3ee1d698b11b9be3",
+        "android_client_info": {
+          "package_name": "com.example.easify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708976263898-3gjslgk0shha2db00n9hti2p0pqbndr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7zhhZWsLBY10t5lSCQUna-oAbAFnpxZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708976263898-3gjslgk0shha2db00n9hti2p0pqbndr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
