@@ -1,3 +1,4 @@
+import 'package:easify/models/theuser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -7,13 +8,24 @@ class AuthenticationService {
   // Constructor
   AuthenticationService(this._firebaseAuth);
 
-  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  // Auth change user stream (get info about the user everytime the auth state changes)
+  Stream<TheUser> get authStateChanges {
+    return _firebaseAuth.authStateChanges().map(_userFromFirebaseUser);
+    // the mapping above is equivalent to:
+    //.map((User user) => _userFromFirebaseUser(user));
+  }
 
-  Future<String> signIn({String email, String password}) async {
+  // Create user object based on FirebaseUser
+  TheUser _userFromFirebaseUser(User user) {
+    return user != null ? TheUser(uid: user.uid) : null;
+  }
+
+  Future signIn({String email, String password}) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return "Signed In";
+      User user = result.user;
+      return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
       return e.message;
     }

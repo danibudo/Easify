@@ -1,12 +1,13 @@
 import 'package:easify/Setup/authentication_service.dart';
-import 'package:easify/home_screen.dart';
+import 'package:easify/models/theuser.dart';
+import 'package:easify/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 //import 'home_screen.dart';
-import 'Setup/login_screen.dart';
+import 'screens/login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final User firebaseuser = context.watch<User>();
+    final TheUser firebaseuser = context.watch<TheUser>();
 
     if (firebaseuser != null) {
       print('Signing you in!');

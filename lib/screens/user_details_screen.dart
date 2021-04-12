@@ -1,4 +1,4 @@
-import 'package:easify/Setup/login_screen.dart';
+import 'package:easify/screens/login_screen.dart';
 import 'package:easify/Setup/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,9 +10,9 @@ class UserDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String emailText = 'Email: ' + user.email;
-
+    // TODO: Add gradient to bgcolor
     return Scaffold(
-      backgroundColor: Colors.amber.shade200,
+      backgroundColor: Colors.orange.shade100,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
@@ -56,12 +56,14 @@ class UserDetailsScreen extends StatelessWidget {
           ),
           Text(emailText),
           Container(
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               onPressed: () {
                 context.read<AuthenticationService>().signOut();
+                // Delete navigator history
                 while (Navigator.canPop(context)) Navigator.pop(context);
               },
-              child: Text("Sign Out"),
+              label: Text("Sign Out"),
+              icon: Icon(Icons.logout),
             ),
             alignment: Alignment.bottomCenter,
             margin: EdgeInsets.only(
