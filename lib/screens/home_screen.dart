@@ -1,13 +1,14 @@
 import 'package:easify/Setup/authentication_service.dart';
-import 'package:easify/Setup/login_screen.dart';
+import 'package:easify/models/theuser.dart';
+import 'package:easify/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:imagebutton/imagebutton.dart';
 
-import './user_details_screen.dart';
+import 'user_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  final User user;
+  final TheUser user;
   HomeScreen({@required this.user});
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // variable that holds the size of the entire screen
     // size is of class type Size
     var size = MediaQuery.of(context).size;
-    var userName = '${widget.user.email}'.split('@').first;
+    var userName = '${widget.user.uid}';
 
     return Scaffold(
       backgroundColor: Colors.greenAccent.shade100,
