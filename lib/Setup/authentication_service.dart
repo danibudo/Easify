@@ -39,7 +39,7 @@ class AuthenticationService {
       User user = result.user;
 
       // Create new document for user with the uid
-      await DatabaseService(uid: user.uid).updateUserData("name");
+      await DatabaseService(uid: user.uid).updateUserData(name);
 
       return "Signed up";
     } on FirebaseAuthException catch (e) {
