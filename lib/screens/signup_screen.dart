@@ -114,6 +114,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           context.read<AuthenticationService>().signUp(
+                                name: nameController.text.trim(),
                                 email: emailController.text.trim(),
                                 password: passwordController.text.trim(),
                               );
