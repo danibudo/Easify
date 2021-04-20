@@ -113,11 +113,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          context.read<AuthenticationService>().signUp(
-                                name: nameController.text.trim(),
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                              );
+                          AuthenticationService(firebaseAuth).signUp(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                            name: nameController.text.trim(),
+                          );
                           while (Navigator.canPop(context))
                             Navigator.pop(context);
                         }
