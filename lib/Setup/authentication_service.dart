@@ -1,3 +1,4 @@
+import 'package:easify/Setup/database.dart';
 import 'package:easify/models/theuser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -31,10 +32,15 @@ class AuthenticationService {
     }
   }
 
-  Future<String> signUp({String email, String password}) async {
+  Future<String> signUp({String name, String email, String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential result = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
+
+      // Create new document for user with the uid
+      await DatabaseService(uid: user.uid).updateUserData(name);
+
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;

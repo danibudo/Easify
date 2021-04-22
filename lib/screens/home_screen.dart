@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:easify/Setup/authentication_service.dart';
+import 'package:easify/Setup/database.dart';
 import 'package:easify/models/theuser.dart';
 import 'package:easify/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:imagebutton/imagebutton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'user_details_screen.dart';
 
@@ -20,109 +24,373 @@ class _HomeScreenState extends State<HomeScreen> {
     // variable that holds the size of the entire screen
     // size is of class type Size
     var size = MediaQuery.of(context).size;
-    var userName = '${widget.user.uid}';
-
+    var name = widget.user.name;
     return Scaffold(
-      backgroundColor: Colors.greenAccent.shade100,
-      body: Stack(
-        children: <Widget>[
+        backgroundColor: Colors.greenAccent.shade100,
+        body: Stack(children: <Widget>[
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 alignment: Alignment.topCenter,
                 image: AssetImage('assets/images/GUI/mainscreen_gradient.png'),
               ),
             ),
           ),
-          SafeArea(
-            child: Column(
-              children: <Widget>[
+          Container(
+              margin: EdgeInsets.only(
+                top: size.height * 0.05,
+                left: size.width * 0.06,
+                right: size.width * 0.06,
+              ),
+              child: Column(children: <Widget>[
                 Container(
-                    height: 64,
-                    child: Row(
-                      // Set elements at each end of the row
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "Easify",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Corbel',
-                              fontSize: 25,
-                            ),
-                          ),
-                          margin: EdgeInsets.only(
-                            left: size.width * 0.08,
-                            top: size.height * 0.05,
+                  margin: EdgeInsets.only(bottom: size.height * 0.02),
+                  child: Row(
+                    // Set elements at each end of the row
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: size.width * 0.035),
+                        child: Text(
+                          'Easify',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Corbel',
+                            fontSize: size.height * 0.043,
                           ),
                         ),
-                        Row(
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: size.width * 0.025),
+                        child: Row(
                           children: [
                             Container(
-                              child: Text(
-                                'Hi, ${userName}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: StreamBuilder<DocumentSnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection('names')
+                                    .doc(widget.user.uid)
+                                    .snapshots(),
+                                builder: (builder, snapshot) {
+                                  return snapshot.hasData
+                                      ? Text(
+                                          'Hi, ${snapshot.data.get('name')}',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Welcome',
+                                        );
+                                },
                               ),
-                              margin: EdgeInsets.only(top: size.height * 0.06),
+                              margin: EdgeInsets.only(right: size.width * 0.02),
                             ),
-                            GestureDetector(
-                              child: Container(
-                                child: CircleAvatar(
-                                  radius: 24,
-                                  backgroundImage: AssetImage(
-                                      'assets/images/GUI/circle_avatar.png'),
+                            Container(
+                              child: GestureDetector(
+                                child: Container(
+                                  child: CircleAvatar(
+                                    radius: 24,
+                                    backgroundImage: AssetImage(
+                                        'assets/images/GUI/circle_avatar.png'),
+                                  ),
                                 ),
-                                margin: EdgeInsets.only(
-                                  right: size.width * 0.02,
-                                  top: size.height * 0.025,
-                                ),
-                                padding: EdgeInsets.only(
-                                  right: size.width * 0.02,
-                                  top: size.height * 0.025,
-                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (
+                                          context,
+                                        ) =>
+                                            UserDetailsScreen(),
+                                      ));
+                                },
                               ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (
-                                        context,
-                                      ) =>
-                                          UserDetailsScreen(),
-                                    ));
-                              },
                             ),
                           ],
                         ),
-                      ],
-                    )),
-                // TODO: Style button, add text, then add the other buttons
-                ElevatedButton(
-                  onPressed: () {
-                    print('hi');
-                  },
-                  child: Image.asset('assets/images/GUI/helping-hand-blue.png'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.transparent),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: BorderSide(color: Colors.black),
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                Container(
+                  margin: EdgeInsets.only(
+                    left: size.width * 0.02,
+                    right: size.width * 0.02,
+                  ),
+                  width: size.width,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: size.width,
+                        height: size.height * 0.8,
+                        child: Column(
+                          children: [
+                            // Gratitude button
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topLeft,
+                                  image: AssetImage(
+                                      'assets/images/GUI/SelfGrowth_MainMenuItem.png'),
+                                ),
+                              ),
+                              height: size.height * 0.185,
+                              margin:
+                                  EdgeInsets.only(bottom: size.height * 0.02),
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  print('Gratitude');
+                                },
+                                child: Stack(
+                                    alignment: Alignment.bottomLeft,
+                                    children: [
+                                      Opacity(
+                                        opacity: 0.5,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            top: size.height * 0.128,
+                                            bottom: size.height * 0.002,
+                                            right: size.width * 0.5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade800,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(25)),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          bottom: size.height * 0.015,
+                                          left: size.width * 0.04,
+                                        ),
+                                        child: Text(
+                                          'Gratitude',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: size.height * 0.025,
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Journal button
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topLeft,
+                                  image: AssetImage(
+                                      'assets/images/GUI/Journaling_Item.png'),
+                                ),
+                              ),
+                              height: size.height * 0.185,
+                              margin:
+                                  EdgeInsets.only(bottom: size.height * 0.02),
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  print('Journal');
+                                },
+                                child: Stack(
+                                    alignment: Alignment.bottomLeft,
+                                    children: [
+                                      Opacity(
+                                        opacity: 0.5,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            top: size.height * 0.128,
+                                            bottom: size.height * 0.002,
+                                            right: size.width * 0.53,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade800,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(25)),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          bottom: size.height * 0.015,
+                                          left: size.width * 0.04,
+                                        ),
+                                        child: Text(
+                                          'Journal',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: size.height * 0.025,
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Explanations and Coping button
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topLeft,
+                                  image: AssetImage(
+                                      'assets/images/GUI/Information_MainMenuItem.png'),
+                                ),
+                              ),
+                              height: size.height * 0.185,
+                              margin:
+                                  EdgeInsets.only(bottom: size.height * 0.02),
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  print('Expl & Coping');
+                                },
+                                child: Stack(
+                                    alignment: Alignment.bottomLeft,
+                                    children: [
+                                      Opacity(
+                                        opacity: 0.5,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            top: size.height * 0.128,
+                                            bottom: size.height * 0.002,
+                                            right: size.width * 0.315,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade800,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(25)),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          bottom: size.height * 0.015,
+                                          left: size.width * 0.04,
+                                        ),
+                                        child: Text(
+                                          'Resources & Coping',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: size.height * 0.025,
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Help Right Now button
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topLeft,
+                                  image: AssetImage(
+                                      'assets/images/GUI/helping-hand-blue.png'),
+                                ),
+                              ),
+                              height: size.height * 0.185,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  print('Help');
+                                },
+                                child: Stack(
+                                    alignment: Alignment.bottomLeft,
+                                    children: [
+                                      Opacity(
+                                        opacity: 0.5,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            top: size.height * 0.128,
+                                            bottom: size.height * 0.002,
+                                            right: size.width * 0.41,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade800,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(25)),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          bottom: size.height * 0.015,
+                                          left: size.width * 0.04,
+                                        ),
+                                        child: Text(
+                                          'Help right now',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: size.height * 0.025,
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ]))
+        ]));
   }
 }

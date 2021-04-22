@@ -36,6 +36,9 @@ dev_dependencies:
   provider: ^4.3.2+1
   firebase_database: ^6.1.1
   imagebutton: ^0.0.6
+  cloud_firestore: ^1.0.5
+  firebase_core: ^1.0.3
+  google_fonts: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
