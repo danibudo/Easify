@@ -1,5 +1,6 @@
 import 'package:easify/screens/login_screen.dart';
 import 'package:easify/Setup/authentication_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -56,10 +57,15 @@ class UserDetailsScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          child: CircleAvatar(
-                            radius: 24,
-                            backgroundImage: AssetImage(
-                                'assets/images/GUI/circle_avatar.png'),
+                          margin: EdgeInsets.only(
+                            bottom: size.height * 0.01,
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              CupertinoIcons.person_crop_circle_fill,
+                              size: size.height * 0.06,
+                            ),
+                            onPressed: () {},
                           ),
                         ),
                         Container(
