@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:easify/Setup/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../Setup/journaling_data_service.dart';
 import './gratitude_entries_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class GratitudeMainScreen extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class GratitudeMainScreen extends StatefulWidget {
 }
 
 class _GratitudeMainScreenState extends State<GratitudeMainScreen> {
+  final User user = FirebaseAuth.instance.currentUser;
   List<String> _questions = [
     "Where did you find beauty today?",
     "Is there a person in your life that inspired you recently?",
@@ -178,9 +181,11 @@ class _GratitudeMainScreenState extends State<GratitudeMainScreen> {
               child: ElevatedButton.icon(
                 icon: Icon(Icons.done_outline_rounded),
                 label: Text("Done"),
-                onPressed: () {
+                onPressed: () async {
                   uploadGratitudeJournalEntry(answer1Controller.text,
                       answer2Controller.text, answer3Controller.text);
+                  await DatabaseService(uid: user.uid)
+                      .fetchGratitudeJournalEntries();
                   while (Navigator.canPop(context)) Navigator.pop(context);
                   Navigator.push(
                     context,
