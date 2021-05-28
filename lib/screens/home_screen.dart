@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:easify/Setup/authentication_service.dart';
 import 'package:easify/Setup/database.dart';
 import 'package:easify/models/theuser.dart';
+import 'package:easify/screens/gratitude/gratitude_main.dart';
 import 'package:easify/screens/login_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:imagebutton/imagebutton.dart';
@@ -47,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   margin: EdgeInsets.only(bottom: size.height * 0.02),
                   child: Row(
-                    // Set elements at each end of the row
+                    // Set spacing between row items
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
@@ -88,23 +90,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: EdgeInsets.only(right: size.width * 0.02),
                             ),
                             Container(
-                              child: GestureDetector(
-                                child: Container(
-                                  child: CircleAvatar(
-                                    radius: 24,
-                                    backgroundImage: AssetImage(
-                                        'assets/images/GUI/circle_avatar.png'),
-                                  ),
+                              margin:
+                                  EdgeInsets.only(bottom: size.height * 0.01),
+                              child: IconButton(
+                                icon: Icon(
+                                  CupertinoIcons.person_crop_circle_fill,
+                                  size: size.height * 0.06,
                                 ),
-                                onTap: () {
+                                onPressed: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (
-                                          context,
-                                        ) =>
-                                            UserDetailsScreen(),
-                                      ));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (
+                                        context,
+                                      ) =>
+                                          UserDetailsScreen(),
+                                    ),
+                                  );
                                 },
                               ),
                             ),
@@ -144,7 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   EdgeInsets.only(bottom: size.height * 0.02),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  print('Gratitude');
+                                  print('Going to gratitude');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              GratitudeMainScreen()));
                                 },
                                 child: Stack(
                                     alignment: Alignment.bottomLeft,
