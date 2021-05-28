@@ -6,7 +6,7 @@ class DatabaseService {
   // collection reference
   final CollectionReference nameCollection =
       FirebaseFirestore.instance.collection('names');
-  final CollectionReference gratitudeColection =
+  final CollectionReference gratitudeCollection =
       FirebaseFirestore.instance.collection('gratitudeJournalEntries');
 
   Future updateUserData(String name) async {
@@ -17,7 +17,7 @@ class DatabaseService {
 
   Future updateGratitudeJournalEntry(
       String ans1, String ans2, String ans3) async {
-    return await gratitudeColection
+    return await gratitudeCollection
         .doc(uid)
         .collection('entries')
         .doc(getCurrentTimeStamp())
@@ -43,5 +43,13 @@ class DatabaseService {
         's' +
         _now.second.toString();
     return timeStamp;
+  }
+
+  Future fetchGratitudeJournalEntries() async {
+    QuerySnapshot stuff =
+        await gratitudeCollection.doc(uid).collection('entries').get();
+    stuff.docs.forEach((element) {
+      print(element.data());
+    });
   }
 }
