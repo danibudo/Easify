@@ -28,8 +28,8 @@ class _GratitudeEntriesScreenState extends State<GratitudeEntriesScreen> {
             Icons.home_rounded,
             color: Colors.grey,
           ),
-          onPressed: () => {
-            Navigator.pop(context),
+          onPressed: () {
+            while (Navigator.canPop(context)) Navigator.pop(context);
           },
         ),
         SizedBox(

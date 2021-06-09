@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easify/Setup/authentication_service.dart';
 import 'package:easify/Setup/database.dart';
 import 'package:easify/models/theuser.dart';
@@ -12,6 +10,7 @@ import 'package:imagebutton/imagebutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'user_details_screen.dart';
+import './journal/emotions_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final TheUser user;
@@ -217,6 +216,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: OutlinedButton(
                                 onPressed: () {
                                   print('Journal');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EmotionsScreen()));
                                 },
                                 child: Stack(
                                     alignment: Alignment.bottomLeft,
