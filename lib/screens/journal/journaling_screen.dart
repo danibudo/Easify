@@ -24,39 +24,6 @@ class JournalingScreen extends StatelessWidget {
       "sadOK.PNG"
     ];
     var size = MediaQuery.of(context).size;
-    var _header = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: Icon(
-            CupertinoIcons.back,
-            color: Colors.white,
-            size: size.height * 0.035,
-          ),
-          onPressed: () => {
-            Navigator.pop(context),
-          },
-        ),
-        Text(
-          "Easify",
-          style: TextStyle(
-            fontFamily: "Corbel",
-            fontSize: size.height * 0.035,
-            color: Colors.white,
-          ),
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.done_outline_rounded,
-            color: Colors.white,
-            size: size.height * 0.035,
-          ),
-          onPressed: () {
-            print("Finishing journal entry");
-          },
-        ),
-      ],
-    );
     var _anchorTexts = [
       "Money",
       "Health",
@@ -89,6 +56,51 @@ class JournalingScreen extends StatelessWidget {
     }
 
     var _anchors = fetchAnchors();
+    List<EmotionAnchor> activeAnchors = [];
+
+    List<EmotionAnchor> fetchActiveAnchors() {
+      for (int i = 0; i < _anchors.length; i++) {
+        if (_anchors[i].active) activeAnchors.add(_anchors[i]);
+      }
+    }
+
+    var _header = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          icon: Icon(
+            CupertinoIcons.back,
+            color: Colors.white,
+            size: size.height * 0.035,
+          ),
+          onPressed: () => {
+            Navigator.pop(context),
+          },
+        ),
+        Text(
+          "Easify",
+          style: TextStyle(
+            fontFamily: "Corbel",
+            fontSize: size.height * 0.035,
+            color: Colors.white,
+          ),
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.done_outline_rounded,
+            color: Colors.white,
+            size: size.height * 0.035,
+          ),
+          onPressed: () {
+            fetchActiveAnchors();
+            for (var element in activeAnchors) {
+              print(element.anchorText + " ");
+            }
+            activeAnchors.clear();
+          },
+        ),
+      ],
+    );
 
     return Scaffold(
       body: Container(
@@ -128,33 +140,34 @@ class JournalingScreen extends StatelessWidget {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(
-                  left: size.width * 0.07,
-                  right: size.width * 0.07,
-                ),
-                child: Column(
-                  children: [
-                    Container(
+              margin: EdgeInsets.only(
+                left: size.width * 0.07,
+                right: size.width * 0.07,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    child: Row(
+                      children: _anchors.sublist(0, 5),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                    margin: EdgeInsets.only(
+                      top: size.height * 0.01,
+                      bottom: size.height * 0.01,
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: 0.95,
+                    child: Container(
                       child: Row(
-                        children: _anchors.sublist(0, 5),
+                        children: _anchors.sublist(5, _anchors.length),
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       ),
-                      margin: EdgeInsets.only(
-                        top: size.height * 0.01,
-                        bottom: size.height * 0.01,
-                      ),
                     ),
-                    FractionallySizedBox(
-                      widthFactor: 0.95,
-                      child: Container(
-                        child: Row(
-                          children: _anchors.sublist(5, _anchors.length),
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ),
-                      ),
-                    )
-                  ],
-                ))
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

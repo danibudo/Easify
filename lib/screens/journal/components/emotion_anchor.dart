@@ -1,8 +1,10 @@
+import 'package:easify/screens/journal/journaling_screen.dart';
 import 'package:flutter/material.dart';
 
 class EmotionAnchor extends StatefulWidget {
   String anchorText;
   double width;
+  bool active = false;
 
   EmotionAnchor({@required this.anchorText, @required this.width});
 
@@ -11,10 +13,8 @@ class EmotionAnchor extends StatefulWidget {
 }
 
 class _EmotionAnchorState extends State<EmotionAnchor> {
-  bool active = false;
-
   Color getBgColor() {
-    if (this.active) {
+    if (widget.active) {
       return Colors.white;
     } else {
       return Colors.transparent;
@@ -22,7 +22,7 @@ class _EmotionAnchorState extends State<EmotionAnchor> {
   }
 
   Color getTextColor() {
-    if (this.active) {
+    if (widget.active) {
       return Colors.blue;
     } else {
       return Colors.white;
@@ -34,7 +34,7 @@ class _EmotionAnchorState extends State<EmotionAnchor> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          active = !active;
+          widget.active = !widget.active;
         });
       },
       child: Container(
