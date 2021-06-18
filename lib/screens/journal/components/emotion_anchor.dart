@@ -30,7 +30,6 @@ class _EmotionAnchorState extends State<EmotionAnchor> {
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuild " + widget.anchorText);
     return GestureDetector(
       onTap: () {
         setState(() {

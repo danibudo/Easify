@@ -1,10 +1,12 @@
 import 'package:easify/screens/journal/components/emotion_anchor.dart';
+import 'package:easify/screens/journal/previous_entries_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../Setup/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class JournalingScreen extends StatefulWidget {
   int emotionId;
-  List<EmotionAnchor> activeAnchors = [];
 
   JournalingScreen({this.emotionId});
 
@@ -35,6 +37,16 @@ class _JournalingScreenState extends State<JournalingScreen> {
     return list;
   }
 
+  List<String> getActiveAnchorsNames() {
+    List<String> result = [];
+    for (var anchor in _anchors) {
+      if (anchor.active) {
+        result.add(anchor.anchorText);
+      }
+    }
+    return result;
+  }
+
   @override
   void initState() {
     _anchors = fetchAnchors();
@@ -43,7 +55,9 @@ class _JournalingScreenState extends State<JournalingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var _emotionPicNames = [
+    User user = FirebaseAuth.instance.currentUser;
+    DatabaseService databaseService = DatabaseService(uid: user.uid);
+    final _emotionPicNames = [
       "happyOK.png",
       "excitedOK.png",
       "gratefulOK.png",
@@ -60,18 +74,6 @@ class _JournalingScreenState extends State<JournalingScreen> {
     var size = MediaQuery.of(context).size;
 
     final keyboardOn = MediaQuery.of(context).viewInsets.bottom != 0;
-
-    List<EmotionAnchor> getActiveAnchors() {
-      List<EmotionAnchor> activeAnchors = [];
-      for (var anchor in _anchors) {
-        if (anchor.active) {
-          activeAnchors.add(anchor);
-        }
-      }
-      print("getActiveAnchors()");
-      print("length: " + activeAnchors.length.toString());
-      return activeAnchors;
-    }
 
     Widget anchorsWidget = Column(
       children: [
@@ -126,26 +128,6 @@ class _JournalingScreenState extends State<JournalingScreen> {
       }
     }
 
-    Widget emotionAndText = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-            height: size.height * 0.08,
-            child: Image.asset(
-                "assets/images/emojis/" + _emotionPicNames[widget.emotionId])),
-        Container(
-          width: size.width * 0.5,
-          child: Text(
-            "Take a moment to notice what makes you feel this way.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
-    );
-
     EdgeInsets handleEmotionAndTextMargins() {
       if (!keyboardOn) {
         return EdgeInsets.symmetric(
@@ -185,12 +167,15 @@ class _JournalingScreenState extends State<JournalingScreen> {
             size: size.height * 0.035,
           ),
           onPressed: () {
-            print("--- Active anchors:");
-            var actAnchors = getActiveAnchors();
-            for (var anchor in actAnchors) {
-              print(
-                  " " + anchor.anchorText + " is " + anchor.active.toString());
+            while (Navigator.canPop(context)) {
+              Navigator.pop(context);
             }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PreviousEntriesScreen()));
+            databaseService.updateJournalEntry(widget.emotionId,
+                getActiveAnchorsNames(), textEditingController.text.trim());
           },
         ),
       ],

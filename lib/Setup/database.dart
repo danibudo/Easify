@@ -8,6 +8,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('names');
   final CollectionReference gratitudeCollection =
       FirebaseFirestore.instance.collection('gratitudeJournalEntries');
+  final CollectionReference journalCollection =
+      FirebaseFirestore.instance.collection('journalEntries');
 
   Future updateUserData(String name) async {
     return await nameCollection.doc(uid).set({
@@ -50,6 +52,19 @@ class DatabaseService {
         await gratitudeCollection.doc(uid).collection('entries').get();
     stuff.docs.forEach((element) {
       print(element.data());
+    });
+  }
+
+  Future updateJournalEntry(
+      int emotionId, List<String> anchors, String text) async {
+    await journalCollection
+        .doc(uid)
+        .collection('entries')
+        .doc(getCurrentTimeStamp())
+        .set({
+      'emotionId': emotionId,
+      'anchors': anchors,
+      'text': text,
     });
   }
 }
