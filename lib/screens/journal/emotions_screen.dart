@@ -82,7 +82,6 @@ class EmotionsScreen extends StatelessWidget {
     List<EmotionsButton> fetchButtons() {
       List<EmotionsButton> buttons = [];
       String imagesFolderAddress = "assets/images/emojis/";
-      print("Addresses:");
       for (int i = 0; i < emotionTexts.length; i++) {
         String imgAddr = imagesFolderAddress + emotionPicNames[i];
         var button = EmotionsButton(

@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 
 class EmotionAnchor extends StatefulWidget {
   String anchorText;
-  double width;
   bool active = false;
 
-  EmotionAnchor({@required this.anchorText, @required this.width});
+  EmotionAnchor({@required this.anchorText});
 
   @override
   _EmotionAnchorState createState() => _EmotionAnchorState();
@@ -31,6 +30,7 @@ class _EmotionAnchorState extends State<EmotionAnchor> {
 
   @override
   Widget build(BuildContext context) {
+    print("Rebuild " + widget.anchorText);
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -39,7 +39,6 @@ class _EmotionAnchorState extends State<EmotionAnchor> {
       },
       child: Container(
         alignment: Alignment.center,
-        width: widget.width,
         height: MediaQuery.of(context).size.height * 0.035,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
