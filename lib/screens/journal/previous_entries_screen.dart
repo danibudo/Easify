@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import './components/journal_entry_card.dart';
+import 'converters.dart';
 
 class PreviousEntriesScreen extends StatelessWidget {
   @override
@@ -64,7 +66,7 @@ class PreviousEntriesScreen extends StatelessWidget {
             child: _header,
           ),
           Container(
-            height: size.height * 0.8,
+            height: size.height * 0.899,
             width: size.width * 0.8,
             child: StreamBuilder(
               stream: journalEntries.snapshots(),
@@ -81,23 +83,12 @@ class PreviousEntriesScreen extends StatelessWidget {
                       final doc = reversedList[index];
                       return Column(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade100,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Container(
-                              width: size.width,
-                              child: Column(
-                                children: [
-                                  Text('Emotion ID: ' +
-                                      doc['emotionId'].toString()),
-                                  Text('Anchors:' + doc['anchors'].toString()),
-                                  Text('Text:' + doc['text']),
-                                ],
-                              ),
-                            ),
-                          ),
+                          JournalEntryCard(
+                              emotionId: doc['emotionId'],
+                              anchors: Converter.convertListToListOfString(
+                                  doc['anchors']),
+                              text: doc['text'],
+                              width: size.width),
                           SizedBox(
                             height: size.height * 0.02,
                           ),
