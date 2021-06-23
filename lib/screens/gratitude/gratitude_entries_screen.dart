@@ -70,7 +70,9 @@ class _GratitudeEntriesScreenState extends State<GratitudeEntriesScreen> {
                     return ListView.builder(
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (context, index) {
-                        final doc = snapshot.data.docs[index];
+                        final reversedList =
+                            snapshot.data.docs.reversed.toList();
+                        final doc = reversedList[index];
                         return Column(
                           children: [
                             Container(

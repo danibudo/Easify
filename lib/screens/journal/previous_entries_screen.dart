@@ -12,6 +12,20 @@ class PreviousEntriesScreen extends StatelessWidget {
         FirebaseFirestore.instance.collection('journalEntries');
     final CollectionReference journalEntries =
         journalCollection.doc(user.uid).collection('entries');
+    final emotionPicNames = [
+      "happyOK.png",
+      "excitedOK.png",
+      "gratefulOK.png",
+      "relaxedOK.png",
+      "contentOK.PNG",
+      "tiredOK.png",
+      "boredOK.png",
+      "confusedOK.png",
+      "anxiousOK.png",
+      "angryOK.PNG",
+      "stressedOK.PNG",
+      "sadOK.PNG"
+    ];
     var _header = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -63,7 +77,8 @@ class PreviousEntriesScreen extends StatelessWidget {
                   return ListView.builder(
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index) {
-                      final doc = snapshot.data.docs[index];
+                      final reversedList = snapshot.data.docs.reversed.toList();
+                      final doc = reversedList[index];
                       return Column(
                         children: [
                           Container(

@@ -1,5 +1,6 @@
 import 'package:easify/screens/home_screen.dart';
 import 'package:easify/screens/journal/journaling_screen.dart';
+import 'package:easify/screens/journal/previous_entries_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './components/emotions_button.dart';
@@ -66,7 +67,10 @@ class EmotionsScreen extends StatelessWidget {
             size: size.height * 0.035,
           ),
           onPressed: () {
-            print("Going to see previous journal entries");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PreviousEntriesScreen()));
           },
         ),
       ],
