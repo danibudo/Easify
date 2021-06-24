@@ -53,6 +53,7 @@ flutter:
 
   assets:
     - assets/images/GUI/
+    - assets/images/emojis/
 
   fonts:
     - family: Corbel
