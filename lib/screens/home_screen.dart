@@ -3,6 +3,7 @@ import 'package:easify/Setup/database.dart';
 import 'package:easify/models/theuser.dart';
 import 'package:easify/screens/gratitude/gratitude_main.dart';
 import 'package:easify/screens/login_screen.dart';
+import 'package:easify/screens/resources_coping/resources_topics_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -285,7 +286,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   EdgeInsets.only(bottom: size.height * 0.02),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  print('Expl & Coping');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ResourcesTopicsScreen()),
+                                  );
                                 },
                                 child: Stack(
                                     alignment: Alignment.bottomLeft,
