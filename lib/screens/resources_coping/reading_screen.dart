@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import './texts.dart';
 
 class ReadingScreen extends StatelessWidget {
   String title;
@@ -58,7 +59,39 @@ class ReadingScreen extends StatelessWidget {
             ),
           ),
           Container(
-            child: Text(text),
+            height: size.height * 0.75,
+            margin: EdgeInsets.only(
+              top: size.height * 0.03,
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: size.width * 0.05,
+              vertical: size.height * 0.02,
+            ),
+            width: size.width * 0.85,
+            child: ListView(
+              children: [
+                Text(
+                  text + "\n\n",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+                Text(
+                  Texts.depressionText + "\n\n" + Texts.selfEsteemText,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ],
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xFF738290),
+              borderRadius: BorderRadius.circular(15),
+            ),
           ),
         ],
       ),

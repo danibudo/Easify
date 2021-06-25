@@ -1,4 +1,5 @@
 import 'package:easify/screens/resources_coping/reading_screen.dart';
+import 'package:easify/screens/resources_coping/thinking_patterns_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'texts.dart';
@@ -162,32 +163,42 @@ class ResourcesTopicsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    width: size.width * 0.6,
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(
-                      bottom: size.height * 0.03,
-                    ),
-                    child: Text(
-                      "Thinking Patterns",
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.6,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ThinkingPatternsScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: size.width * 0.6,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(
+                        bottom: size.height * 0.03,
                       ),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.15,
-                      vertical: size.height * 0.05,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEC6CA),
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 0.5,
+                      child: Text(
+                        "Thinking Patterns",
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.6,
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width * 0.15,
+                        vertical: size.height * 0.05,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFEEC6CA),
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 0.5,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
                 ],
