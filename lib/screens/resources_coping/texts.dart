@@ -23,10 +23,10 @@ class Texts {
     "text for pattern 2; text for pattern 2; text for pattern 2; text for pattern 2; text for pattern 2",
     "text for pattern 3; text for pattern 3; text for pattern 3; text for pattern 3; text for pattern 3",
     "text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4",
-    "text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 5",
-    "text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 6",
-    "text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 7",
-    "text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 8",
-    "text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 4; text for pattern 9"
+    "text for pattern 5; text for pattern 5; text for pattern 5; text for pattern 5; text for pattern 5",
+    "text for pattern 6; text for pattern 6; text for pattern 6; text for pattern 6; text for pattern 6;",
+    "text for pattern 7; text for pattern 7; text for pattern 7; text for pattern 7; text for pattern 7;",
+    "text for pattern 8; text for pattern 8; text for pattern 8; text for pattern 8; text for pattern 8;",
+    "text for pattern 9; text for pattern 9; text for pattern 9; text for pattern 9; text for pattern 9;"
   ];
 }
