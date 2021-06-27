@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'choose_breathing_screen.dart';
+
 class HRNMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,12 @@ class HRNMainScreen extends StatelessWidget {
               height: size.height * 0.4,
               child: GestureDetector(
                 onTap: () {
-                  print("Breathing");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChooseBreathingScreen(),
+                    ),
+                  );
                 },
                 child: Stack(
                   children: [
