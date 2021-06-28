@@ -1,3 +1,4 @@
+import 'package:easify/screens/resources_coping/texts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,10 +6,10 @@ import 'draw_circle.dart';
 import './breathing_text.dart';
 
 class ChooseBreathingScreen extends StatefulWidget {
-  int duration;
+  int duration = 1;
   int exerciseId = 0;
   List<Color> colors = [
-    Color(0xFF00F4AB),
+    Color(0xFF00E39F),
     Color(0xFF3874FF),
     Color(0xFFFF3874),
     Color(0xFFFFC338)
@@ -73,14 +74,14 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
 
     Color handleLeftButtonColor() {
       if (widget.exerciseId == 0) {
-        return Colors.grey;
+        return Colors.transparent;
       } else
         return Colors.black;
     }
 
     Color handleRightButtonColor() {
       if (widget.exerciseId == 3) {
-        return Colors.grey;
+        return Colors.transparent;
       } else
         return Colors.black;
     }
@@ -110,11 +111,11 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
               ),
             ),
           ),
-          // Circle
+          // Circle + IconButtons
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(
-              top: size.height * 0.3,
+              top: size.height * 0.175,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -158,6 +159,106 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
                   onPressed: handleOnPressedRightButton,
                 ),
               ],
+            ),
+          ),
+          // Informative Text
+          Container(
+            alignment: Alignment.center,
+            width: size.width * 0.6,
+            height: size.height * 0.022 * 2,
+            margin: EdgeInsets.only(
+              top: size.height * 0.175,
+            ),
+            child: Text(
+              BreathingText.techniqueInfo[widget.exerciseId],
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: size.height * 0.021,
+              ),
+            ),
+          ),
+
+          Container(
+            margin: EdgeInsets.only(
+              top: size.height * 0.05,
+            ),
+            child: Text(
+              "Duration",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          // Duration realated widgets
+          Container(
+            width: size.width * 0.5,
+            margin: EdgeInsets.only(
+              top: size.height * 0.015,
+              left: size.width * 0.25,
+              right: size.width * 0.25,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  color: Colors.white,
+                  icon: Icon(Icons.arrow_circle_down),
+                  iconSize: size.height * 0.05,
+                  onPressed: () {
+                    setState(() {
+                      if (widget.duration > 1) widget.duration--;
+                    });
+                  },
+                  tooltip: "Decrease exercise duration.",
+                ),
+                Container(
+                  height: size.height * 0.05,
+                  width: size.width * 0.15,
+                  alignment: Alignment.center,
+                  child: Text(
+                    widget.duration.toString(),
+                    style: TextStyle(
+                      fontSize: size.height * 0.027,
+                      color: Colors.white,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey.shade800.withOpacity(0.5),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_circle_up),
+                  color: Colors.white,
+                  iconSize: size.height * 0.05,
+                  onPressed: () {
+                    setState(() {
+                      if (widget.duration < 99) widget.duration++;
+                    });
+                  },
+                  tooltip: "Increase exercise duration.",
+                ),
+              ],
+            ),
+          ),
+          // Start button
+          Container(
+            margin: EdgeInsets.only(
+              top: size.height * 0.035,
+            ),
+            child: ElevatedButton(
+              onPressed: () {
+                print("start exercise");
+              },
+              child: Text(
+                "Start",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(widget.colors[widget.exerciseId]),
+              ),
             ),
           ),
         ],
