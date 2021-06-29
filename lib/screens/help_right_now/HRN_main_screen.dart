@@ -1,3 +1,4 @@
+import 'package:easify/screens/help_right_now/perspective_scale_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -125,7 +126,12 @@ class HRNMainScreen extends StatelessWidget {
               height: size.height * 0.4,
               child: GestureDetector(
                 onTap: () {
-                  print("Perspective Scale");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PerspectiveScaleScreen(),
+                    ),
+                  );
                 },
                 child: Stack(
                   children: [

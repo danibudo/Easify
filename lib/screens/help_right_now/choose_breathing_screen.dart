@@ -1,3 +1,4 @@
+import 'package:easify/screens/help_right_now/breathing_exercise_screen.dart';
 import 'package:easify/screens/resources_coping/texts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -247,10 +248,14 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
             ),
             child: ElevatedButton(
               onPressed: () {
-                print("start exercise");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BreathingExerciseScreen()),
+                );
               },
               child: Text(
-                "Start",
+                "Choose Exercise",
                 style: TextStyle(
                   color: Colors.white,
                 ),
