@@ -35,15 +35,16 @@ class BreathingText {
   ];
 
   static List<String> scaleText = [
-    "Everything in life is horrible and the world will end soon.",
-    "Most of the things are going bad. I don't know how to get out of this.",
-    "Almost everything feels bad, but there still is a glimpse of hope.",
-    "Vivamus placerat accumsan finibus. Quisque vulputate cursus neque, a pellentesque massa aliquam ut.",
-    "Fusce aliquam egestas arcu, eu placerat lectus facilisis vel. Suspendisse rhoncus placerat augue vel mattis.",
-    "Nunc in velit non elit auctor bibendum sit amet non est. Fusce elit nulla, rutrum eu rhoncus vel, luctus nec ligula.",
-    "Nulla auctor tellus tincidunt erat tincidunt suscipit. Fusce eu lacinia velit.",
-    "Ut neque lacus, dapibus eget arcu nec, pharetra pharetra nunc.",
-    "Vivamus gravida mi massa, non consectetur nisl vulputate in.",
-    "Duis libero erat, accumsan ut lacinia sit amet, ornare eget enim.",
+    "Everything has fallen apart and it feels like it's all your fault.",
+    "Things are really bad and you can't do anything about it, but they could still be a little worse",
+    "Life seems to be going downhill right now, and you feel hopeless",
+    "Things aren't too great and you can't do much about it.",
+    "This isn't good, but you've been through worse and we'll get through this.",
+    "This isn't the best day, but it's not the worst either. It will get better soon.",
+    "Things might not be to good now, but they'll pick up real soon.",
+    "You're a little upset, but it's not the end of the world.",
+    "This is just a little speedbump... You'll be over it in no time.",
+    "This is a tiny dent in an otherwise awesome day.",
+    "Everything in life is perfect.",
   ];
 }
