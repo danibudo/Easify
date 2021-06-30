@@ -180,7 +180,7 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
           Container(
             alignment: Alignment.center,
             width: size.width * 0.6,
-            height: size.height * 0.022 * 2,
+            height: size.height * 0.025 * 2,
             margin: EdgeInsets.only(
               top: size.height * 0.175,
             ),

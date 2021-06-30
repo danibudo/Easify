@@ -28,9 +28,6 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
   double diameter = 0.3;
   @override
   Widget build(BuildContext context) {
-    if (widget.isAnimationDone) {
-      Navigator.pop(context);
-    }
     final size = MediaQuery.of(context).size;
     final _header = Row(
       children: [
@@ -59,6 +56,21 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
         ),
       ],
     );
+    Widget handleGoBackButton() {
+      if (widget.isAnimationDone) {
+        return ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Go back"),
+        );
+      } else {
+        return SizedBox(
+          width: 0,
+          height: 0,
+        );
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.blue.shade200,
@@ -93,6 +105,7 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
               ),
             ),
           ),
+          handleGoBackButton(),
         ],
       ),
     );
@@ -117,7 +130,8 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
     const rebuildTime = Duration(
       milliseconds: 50,
     );
-    int totalTimeInMilliSeconds = (widget.duration.inMilliseconds / 6).round();
+    int totalTimeInMilliSeconds = (widget.duration.inMilliseconds / 4).round();
+    bool firstCycle = true;
     timer = Timer.periodic(
       rebuildTime,
       (timer) {
@@ -127,13 +141,14 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
             setState(
               () {
                 widget.animationController.reset();
-                widget.message = "Done.\nGoing back.";
+                widget.message = "Done.";
                 Timer(
                   Duration(
                     seconds: 1,
                   ),
                   () {
                     setState(() {
+                      if (widget.message != "Done.") widget.message = "Done.";
                       widget.isAnimationDone = true;
                       timer.cancel();
                     });
@@ -160,13 +175,19 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
                 } else if (widget.animationController.status ==
                     AnimationStatus.dismissed) {
                   widget.message = "Hold";
-                  Timer(
-                    widget.breathingExerciseData.holdAfterExhale,
-                    () {
-                      widget.animationController.forward();
-                      widget.message = "Inhale";
-                    },
-                  );
+                  if (firstCycle) {
+                    widget.animationController.forward();
+                    widget.message = "Inhale";
+                    firstCycle = false;
+                  } else {
+                    Timer(
+                      widget.breathingExerciseData.holdAfterExhale,
+                      () {
+                        widget.animationController.forward();
+                        widget.message = "Inhale";
+                      },
+                    );
+                  }
                 }
               },
             );
