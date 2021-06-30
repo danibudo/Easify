@@ -32,6 +32,7 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final _header = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           icon: Icon(
@@ -44,9 +45,6 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
           },
         ),
         Container(
-          margin: EdgeInsets.only(
-            left: size.width * 0.31,
-          ),
           child: Text(
             "Easify",
             style: TextStyle(
@@ -56,6 +54,72 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
             ),
           ),
         ),
+        IconButton(
+          icon: Icon(
+            Icons.info_rounded,
+            color: widget.colors[widget.exerciseId],
+          ),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(BreathingText.techniqueNames[widget.exerciseId]),
+                content: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                      ),
+                      child: Text(
+                        BreathingText.techniqueCounting[widget.exerciseId],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Text(
+                        "Details",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                      ),
+                      child: Text(
+                        BreathingText.detailedTechniqueInfo[widget.exerciseId],
+                      ),
+                    ),
+                    Text(
+                      "Instructions",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                      ),
+                      child: Text(
+                        BreathingText.techniqueInstructions[widget.exerciseId],
+                      ),
+                    ),
+                  ],
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Got it"),
+                  )
+                ],
+              ),
+            );
+          },
+        )
       ],
     );
     void handleOnPressedLeftButton() {

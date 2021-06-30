@@ -130,7 +130,7 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
     const rebuildTime = Duration(
       milliseconds: 50,
     );
-    int totalTimeInMilliSeconds = (widget.duration.inMilliseconds / 4).round();
+    int totalTimeInMilliSeconds = widget.duration.inMilliseconds;
     bool firstCycle = true;
     timer = Timer.periodic(
       rebuildTime,
