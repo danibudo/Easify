@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'user_details_screen.dart';
 import './journal/emotions_screen.dart';
+import './help_right_now/HRN_main_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final TheUser user;
@@ -28,8 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var size = MediaQuery.of(context).size;
     var name = widget.user.name;
     return Scaffold(
-        backgroundColor: Colors.greenAccent.shade100,
-        body: Stack(children: <Widget>[
+      backgroundColor: Colors.greenAccent.shade100,
+      body: Stack(
+        children: <Widget>[
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -40,12 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Container(
-              margin: EdgeInsets.only(
-                top: size.height * 0.05,
-                left: size.width * 0.06,
-                right: size.width * 0.06,
-              ),
-              child: Column(children: <Widget>[
+            margin: EdgeInsets.only(
+              top: size.height * 0.05,
+              left: size.width * 0.06,
+              right: size.width * 0.06,
+            ),
+            child: Column(
+              children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(bottom: size.height * 0.02),
                   child: Row(
@@ -354,7 +357,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: size.height * 0.185,
                               child: OutlinedButton(
                                 onPressed: () {
-                                  print('Help');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HRNMainScreen(),
+                                    ),
+                                  );
                                 },
                                 child: Stack(
                                     alignment: Alignment.bottomLeft,
@@ -407,7 +415,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-              ]))
-        ]));
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
