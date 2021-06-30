@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'draw_circle.dart';
 import './breathing_text.dart';
+import './breathing_exercise_data.dart';
 
 class ChooseBreathingScreen extends StatefulWidget {
   int duration = 1;
@@ -71,6 +72,19 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
           widget.exerciseId++;
         });
       print("Right - index: " + widget.exerciseId.toString());
+    }
+
+    BreathingExerciseData getBreathingExerciseData() {
+      switch (widget.exerciseId) {
+        case 0:
+          return extendedExhale;
+        case 1:
+          return relaxingBreath;
+        case 2:
+          return bellyBreathing;
+        default:
+          return boxBreathing;
+      }
     }
 
     Color handleLeftButtonColor() {
@@ -251,7 +265,14 @@ class _ChooseBreathingScreenState extends State<ChooseBreathingScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => BreathingExerciseScreen()),
+                    builder: (context) => BreathingExerciseScreen(
+                      breathingExerciseData: getBreathingExerciseData(),
+                      bubbleColor: widget.colors[widget.exerciseId],
+                      duration: Duration(
+                        minutes: widget.duration,
+                      ),
+                    ),
+                  ),
                 );
               },
               child: Text(
