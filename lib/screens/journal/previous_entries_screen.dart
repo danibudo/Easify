@@ -56,7 +56,7 @@ class PreviousEntriesScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Color(0xFF3F83D1),
       body: Container(
         child: Column(children: [
           Container(

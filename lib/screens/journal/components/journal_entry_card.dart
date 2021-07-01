@@ -29,15 +29,20 @@ class JournalEntryCard extends StatelessWidget {
     List<Widget> widgetAnchors = [];
     for (var anchor in anchors) {
       widgetAnchors.add(Container(
-        child: Text(anchor),
+        child: Text(
+          anchor,
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+          ),
+        ),
         padding: EdgeInsets.symmetric(
           horizontal: 5,
           vertical: 2,
         ),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1),
+          border: Border.all(color: Colors.grey.withOpacity(0.7), width: 1.5),
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey.shade100,
+          color: Colors.white.withOpacity(.75),
         ),
       ));
       widgetAnchors.add(SizedBox(
@@ -95,7 +100,7 @@ class JournalEntryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.grey.shade400,
+          color: Color(0xFF8ABBF2),
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Container(
         width: width,
@@ -104,6 +109,7 @@ class JournalEntryCard extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 15, left: 15),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     child: Image.asset(
@@ -129,7 +135,8 @@ class JournalEntryCard extends StatelessWidget {
               ),
               child: Text(text),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1),
+                border:
+                    Border.all(color: Colors.grey.withOpacity(.7), width: 1.5),
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
               ),
