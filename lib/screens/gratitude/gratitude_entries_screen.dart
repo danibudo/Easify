@@ -26,7 +26,7 @@ class _GratitudeEntriesScreenState extends State<GratitudeEntriesScreen> {
           iconSize: size.width * 0.07,
           icon: Icon(
             Icons.home_rounded,
-            color: Colors.grey,
+            color: Colors.black,
           ),
           onPressed: () {
             while (Navigator.canPop(context)) Navigator.pop(context);
@@ -41,14 +41,15 @@ class _GratitudeEntriesScreenState extends State<GratitudeEntriesScreen> {
             "Easify",
             style: TextStyle(
               fontFamily: "Corbel",
-              fontSize: size.height * 0.03,
+              fontSize: size.height * 0.0365,
+              color: Colors.black,
             ),
           ),
         ),
       ],
     );
     return Scaffold(
-      backgroundColor: Colors.amber.shade100,
+      backgroundColor: Color(0xFFFFCFB3),
       body: Container(
         child: Column(
           children: [
@@ -57,7 +58,19 @@ class _GratitudeEntriesScreenState extends State<GratitudeEntriesScreen> {
             ),
             _header,
             Container(
-              height: size.height * 0.8,
+              margin: EdgeInsets.only(
+                top: size.height * 0.0275,
+              ),
+              child: Text(
+                "Your gratitude journal entries:",
+                style: TextStyle(
+                  fontSize: size.height * 0.023,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Container(
+              height: size.height * 0.845,
               width: size.width * 0.8,
               child: StreamBuilder(
                 stream: gratitudeJournalEntries.snapshots(),
@@ -75,24 +88,10 @@ class _GratitudeEntriesScreenState extends State<GratitudeEntriesScreen> {
                         final doc = reversedList[index];
                         return Column(
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.shade100,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Container(
-                                width: size.width,
-                                child: Column(
-                                  children: [
-                                    Text('Answer 1: ' + doc['answer1']),
-                                    Text('Answer 2 :' + doc['answer2']),
-                                    Text('Answer 3 :' + doc['answer3']),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.02,
+                            GratitudeEntryCard(
+                              answer1: doc['answer1'],
+                              answer2: doc['answer2'],
+                              answer3: doc['answer3'],
                             ),
                           ],
                         );

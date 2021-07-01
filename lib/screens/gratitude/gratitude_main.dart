@@ -63,7 +63,7 @@ class _GratitudeMainScreenState extends State<GratitudeMainScreen> {
         IconButton(
           icon: Icon(
             CupertinoIcons.back,
-            color: Colors.grey,
+            color: Colors.black,
           ),
           onPressed: () => {
             Navigator.pop(context),
@@ -73,13 +73,14 @@ class _GratitudeMainScreenState extends State<GratitudeMainScreen> {
           "Easify",
           style: TextStyle(
             fontFamily: "Corbel",
-            fontSize: size.height * 0.03,
+            fontSize: size.height * 0.035,
+            fontWeight: FontWeight.w500,
           ),
         ),
         IconButton(
           icon: Icon(
             CupertinoIcons.list_bullet,
-            color: Colors.grey,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.push(
@@ -142,7 +143,7 @@ class _GratitudeMainScreenState extends State<GratitudeMainScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.orange.shade100,
+      backgroundColor: Color(0xFFFECDAA),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -156,7 +157,12 @@ class _GratitudeMainScreenState extends State<GratitudeMainScreen> {
               height: size.height * 0.015,
             ),
             Container(
-              child: Text('$question'),
+              child: Text(
+                '$question',
+                style: TextStyle(
+                  fontSize: size.height * 0.0225,
+                ),
+              ),
             ),
             SizedBox(
               height: size.height * 0.03,
