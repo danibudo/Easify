@@ -1,4 +1,5 @@
 import 'package:easify/screens/resources_coping/reading_screen.dart';
+import 'package:easify/screens/resources_coping/text_widget.dart';
 import 'package:easify/screens/resources_coping/thinking_patterns_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +35,14 @@ class ResourcesTopicsScreen extends StatelessWidget {
         ),
       ],
     );
-    void onTapToReadingScreen(String title, String text) {
+    void onTapToReadingScreen(String title, int id) {
+      print("onTap topic ID: " + id.toString());
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ReadingScreen(
             title: title,
-            text: text,
+            topicId: id,
           ),
         ),
       );
@@ -64,10 +66,15 @@ class ResourcesTopicsScreen extends StatelessWidget {
               margin: EdgeInsets.only(top: size.height * 0.05),
               child: Column(
                 children: [
-                  Text("Topics to read on:"),
+                  Text(
+                    "Topics to read on:",
+                    style: TextStyle(
+                      fontSize: size.height * 0.022,
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () {
-                      onTapToReadingScreen("Depression", Texts.depressionText);
+                      onTapToReadingScreen("Depression", 0);
                     },
                     child: Container(
                       margin: EdgeInsets.only(
@@ -100,7 +107,7 @@ class ResourcesTopicsScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      onTapToReadingScreen("Anxiety", Texts.anxietyText);
+                      onTapToReadingScreen("Anxiety", 1);
                     },
                     child: Container(
                       margin: EdgeInsets.only(
@@ -132,7 +139,7 @@ class ResourcesTopicsScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      onTapToReadingScreen("Self-Esteem", Texts.selfEsteemText);
+                      onTapToReadingScreen("Self-Esteem", 2);
                     },
                     child: Container(
                       width: size.width * 0.6,

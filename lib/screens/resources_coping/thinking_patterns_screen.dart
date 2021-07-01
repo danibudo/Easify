@@ -10,9 +10,10 @@ class ThinkingPatternsScreen extends StatefulWidget {
 }
 
 class _ThinkingPatternsScreenState extends State<ThinkingPatternsScreen> {
-  String titleText = "Choose a pattern from the list above";
+  String titleText =
+      "Thought patterns are best described as a person’s usual way of thinking. This term can also be described as habitual thinking, since it describes a habitual mental process. Thinking patterns can be negative or positive. Choose a pattern from the list above to read about it in more detail.";
   String contentText = "";
-  List<int> buttonIds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  List<int> buttonIds = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   List<ThinkingPatternButton> fetchButtons() {
     List<ThinkingPatternButton> buttons = [];
     for (var id in buttonIds) {
@@ -20,7 +21,7 @@ class _ThinkingPatternsScreenState extends State<ThinkingPatternsScreen> {
           onPressed: () {
             setState(() {
               this.titleText = Texts.patternsName[id];
-              this.contentText = Texts.patternsText[id];
+              this.contentText = Texts.patternsText[id].first;
             });
             ;
           },
@@ -68,16 +69,21 @@ class _ThinkingPatternsScreenState extends State<ThinkingPatternsScreen> {
         );
       } else {
         return Container(
-          height: size.height * 0.55,
           margin: EdgeInsets.symmetric(
             horizontal: size.width * 0.05,
             vertical: size.height * 0.02,
           ),
           padding: EdgeInsets.symmetric(
-            vertical: size.height * 0.02,
+            vertical: size.height * 0.025,
             horizontal: size.width * 0.04,
           ),
-          child: ListView(children: [Text(contentText)]),
+          child: Text(
+            contentText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: size.height * 0.023,
+            ),
+          ),
           decoration: BoxDecoration(
             color: Colors.grey.shade300,
             borderRadius: BorderRadius.circular(20),
@@ -100,22 +106,45 @@ class _ThinkingPatternsScreenState extends State<ThinkingPatternsScreen> {
               width: size.width * 0.9,
               child: Column(
                 children: [
-                  Row(
-                    children: buttons.sublist(0, 5),
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Container(
+                    child: Row(
+                      children: buttons.sublist(0, 3),
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: buttons.sublist(3, 6),
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: buttons.sublist(6, 8),
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    ),
                   ),
                   Row(
-                    children: buttons.sublist(5, buttons.length),
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [buttons.last],
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
                 ],
               ),
             ),
             Container(
-              child: Text(titleText),
-              margin: EdgeInsets.only(
-                top: size.height * 0.03,
+              alignment: Alignment.center,
+              child: Text(
+                titleText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: size.height * 0.0215,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+              margin: EdgeInsets.symmetric(
+                vertical: size.height * 0.03,
+              ),
+              width: size.width * 0.85,
             ),
             handleTextArea(),
           ],

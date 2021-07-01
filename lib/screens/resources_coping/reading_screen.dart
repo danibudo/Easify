@@ -1,11 +1,12 @@
+import 'package:easify/screens/resources_coping/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './texts.dart';
+import './text_widget.dart';
 
 class ReadingScreen extends StatelessWidget {
   String title;
-  String text;
-  ReadingScreen({@required this.title, @required this.text});
+  int topicId;
+  ReadingScreen({@required this.title, @required this.topicId});
 
   @override
   Widget build(BuildContext context) {
@@ -65,31 +66,15 @@ class ReadingScreen extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(
               horizontal: size.width * 0.05,
-              vertical: size.height * 0.02,
             ),
             width: size.width * 0.85,
             child: ListView(
               children: [
-                Text(
-                  text + "\n\n",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.justify,
-                ),
-                Text(
-                  Texts.depressionText + "\n\n" + Texts.selfEsteemText,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.justify,
-                ),
+                TextWidget(topicId: topicId),
               ],
             ),
             decoration: BoxDecoration(
-              color: Color(0xFF738290),
+              color: Color(0xFFC6CCD2),
               borderRadius: BorderRadius.circular(15),
             ),
           ),
